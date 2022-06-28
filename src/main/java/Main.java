@@ -31,7 +31,7 @@ public class Main {
                     scanner.nextLine();
 
                     Book book = new Book(title, genre, numberOfPages);
-                    Library.addBook(book);
+                    Library.addBook(title, book);
 
                     System.out.print("Are you done adding books(Y/n): ");
                     Boolean isDone = !scanner.nextLine().equals("n");
