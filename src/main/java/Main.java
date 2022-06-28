@@ -3,51 +3,34 @@ import java.util.Scanner;
 import model.Book;
 import model.Library;
 
+// Ask the user if they want to add a book or look up an existing book
+// If they want to look up an existing book, ask them for the title of the book
+// Using the title they enter, look up the book in your map-based list
+// If you find the book, display the book's information and continue your loop
+// If you don't find the book, tell the user your library doesn't have that book and continue your loop
+
 public class Main {
     public static void main(String[] args) {
-        // your code here
-        getUserBooks();
-        System.out.println("\n---- Printing Library ----");
         System.out.println(Library.getLibrary());
-    }
-
-    public static void getUserBooks() {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                String title = "", genre = "";
-                Integer numberOfPages = 0;
-                System.out.println("\n---- Adding Book(s) ----\n");
-                try {
-                    System.out.print("Please enter the title: ");
-                    title = scanner.nextLine();
-                    System.out.print("Please enter the genre: ");
-                    genre = scanner.nextLine();
+                System.out.println("\n---- Library System ----");
+                System.out.print(
+                        "Do you want to add a book or look up an existing book? (Choose add/LOOK): ");
+                String userChoice = scanner.nextLine();
+                if (userChoice.equalsIgnoreCase("add"))
+                    Library.addLibraryBooks(scanner);
+                else
+                    Library.look
 
-                    if (title.isBlank() || genre.isBlank())
-                        throw new Exception("Blank values are invalid. Please try again.");
-
-                    System.out.print("Please enter the number of pages: ");
-                    numberOfPages = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Book book = new Book(title, genre, numberOfPages);
-                    Library.addBook(title, book);
-
-                    System.out.print("Are you done adding books(Y/n): ");
-                    Boolean isDone = !scanner.nextLine().equals("n");
-                    if (isDone)
-                        return;
-                } catch (Exception e) {
-                    String errorMessage = e.getMessage() == null ? "Invalid number of pages. Please try again."
-                            : e.getMessage();
-                    System.out.println(errorMessage);
-                    // scanner.nextLine();
-                    if (scanner.hasNextLine())
-                        scanner.nextLine();
-                }
+                    System.out.print("Are you done with the library system? (Y/n): ");
+                boolean isDone = !scanner.nextLine().equals("n");
+                if (isDone)
+                    return;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
